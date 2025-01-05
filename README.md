@@ -29,7 +29,7 @@ _In this repository you will see a collection of my competitive programming solu
 
 <h4 align="center" style="display:flex; flex-direction: row; justify-content: center; align-items: center">
 
-<img src="https://socialify.git.ci/luisbernardinello/java-competitive-programming/image?font=Raleway&language=1&name=1&owner=1&pattern=Solid&theme=Auto" alt="java-competitive-programming" width="498" height="270" />
+<img src="https://socialify.git.ci/luisbernardinello/competitive-java/image?font=Raleway&language=1&name=1&owner=1&pattern=Solid&theme=Auto" alt="competitive-java" width="498" height="270" />
 
 <p>
 Please leave a star if you like ⭐
