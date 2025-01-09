@@ -1,20 +1,23 @@
-package leetcode.binarytree.binarytreetodoublylinkedlist;
+package leetcode.binarytree.binarytreetodll;
 
+//https://www.geeksforgeeks.org/convert-given-binary-tree-to-doubly-linked-list-in-linear-time/
 class Solution {
     private Node prev = null;
     private Node head = null;
 
-    public Node convert(Node root) {
+
+
+    public Node bToDLL(Node root) {
         if (root == null) return null;
 
-        convertToDLL(root);
+        inorder(root);
         return head;
     }
 
-    private void convertToDLL(Node root) {
+    private void inorder(Node root) {
         if (root == null) return;
 
-        convertToDLL(root.left);
+        inorder(root.left);
 
         if (prev == null) {
             head = root;
@@ -24,7 +27,7 @@ class Solution {
         }
         prev = root;
 
-        convertToDLL(root.right);
+        inorder(root.right);
     }
 
     private void printList(Node head) {
@@ -53,7 +56,7 @@ class Solution {
         */
 
         Solution solution = new Solution();
-        Node dll = solution.convert(root);
+        Node dll = solution.bToDLL(root);
 
         System.out.println("result:");
         solution.printList(dll);
