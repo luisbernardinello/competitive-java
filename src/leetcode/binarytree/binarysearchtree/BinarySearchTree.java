@@ -1,96 +1,94 @@
-package leetcode.binarysearchtree.bst;
-
-// Java Program to Implement
-// Binary Search Tree
+package leetcode.binarytree.binarysearchtree;
 
 class Node {
     int key;
     Node left, right;
 
-    public Node(int item) {
-        key = item;
+    public Node(int key) {
+        this.key = key;
         left = right = null;
     }
 }
 
-class BinarySearchTree {
+public class BinarySearchTree {
     Node root;
 
     public BinarySearchTree() {
         root = null;
     }
 
-    // Insertion operation
     void insert(int key) {
         root = insertRec(root, key);
     }
 
+    // insert operation
     Node insertRec(Node root, int key) {
         if (root == null) {
             root = new Node(key);
             return root;
         }
 
-        if (key < root.key)
+        if(key < root.key){
             root.left = insertRec(root.left, key);
-        else if (key > root.key)
+        } else if(key > root.key) {
             root.right = insertRec(root.right, key);
-
+        }
         return root;
     }
 
-    // Deletion operation
     void delete(int key) {
         root = deleteRec(root, key);
     }
 
     Node deleteRec(Node root, int key) {
-        if (root == null)
+        if (root == null) {
             return root;
+        }
 
-        if (key < root.key)
+        if (key < root.key) {
             root.left = deleteRec(root.left, key);
-        else if (key > root.key)
+        } else if (key > root.key) {
             root.right = deleteRec(root.right, key);
-        else {
-            if (root.left == null)
+        } else {
+            if (root.left == null){
                 return root.right;
-            else if (root.right == null)
+            } else if (root.right == null) {
                 return root.left;
-
+            }
             root.key = minValue(root.right);
 
             root.right = deleteRec(root.right, root.key);
         }
-
         return root;
     }
 
     int minValue(Node root) {
-        int minv = root.key;
+        int min = root.key;
         while (root.left != null) {
-            minv = root.left.key;
+            min = root.left.key;
             root = root.left;
         }
-        return minv;
+        return min;
     }
 
-    // Search operation
+    // search operation
     boolean search(int key) {
         return searchRec(root, key);
     }
 
     boolean searchRec(Node root, int key) {
-        if (root == null)
+        if (root == null) {
             return false;
-        if (root.key == key)
+        }
+        if (root.key == key) {
             return true;
-        if (root.key < key)
+        }
+        if (root.key < key) {
             return searchRec(root.right, key);
+        }
         return searchRec(root.left, key);
     }
 
-    // Inorder traversal
     void inorder() {
         inorderRec(root);
         System.out.println("\n");
@@ -104,11 +102,9 @@ class BinarySearchTree {
         }
     }
 
-    // Preorder traversal
     void preorder() {
         preorderRec(root);
         System.out.println("\n");
-
     }
 
     void preorderRec(Node root) {
@@ -119,7 +115,6 @@ class BinarySearchTree {
         }
     }
 
-    // Postorder traversal
     void postorder() {
         postorderRec(root);
         System.out.println("\n");
@@ -134,15 +129,16 @@ class BinarySearchTree {
     }
 
     static int height(Node root) {
-        if (root == null)
+        if (root == null) {
             return -1;
+        }
 
-        // compute the height of left and right subtrees
-        int lHeight = height(root.left);
-        int rHeight = height(root.right);
+        int leftHeight = height(root.left);
+        int rightHeight = height(root.right);
 
-        return Math.max(lHeight, rHeight) + 1;
+        return Math.max(leftHeight, rightHeight) + 1;
     }
+
 
     public static void main(String[] args) {
         BinarySearchTree tree = new BinarySearchTree();
@@ -181,5 +177,4 @@ class BinarySearchTree {
 
         System.out.println(height(tree.root));
     }
-
 }
