@@ -29,19 +29,19 @@ public class Solution {
         queue.offer(root);
 
         while (!queue.isEmpty()) {
-            int levelSize = queue.size();
+            int size = queue.size();
             double averageLevel = 0;
-            for (int i=0; i < levelSize; i++) {
-                TreeNode currentNode = queue.poll();
-                averageLevel += currentNode.val;
-                if (currentNode.left != null) {
-                    queue.offer(currentNode.left);
+            for (int i=0; i < size; i++) {
+                TreeNode first = queue.poll();
+                averageLevel += first.val;
+                if (first.left != null) {
+                    queue.offer(first.left);
                 }
-                if (currentNode.right != null) {
-                    queue.offer(currentNode.right);
+                if (first.right != null) {
+                    queue.offer(first.right);
                 }
             }
-            averageLevel = averageLevel / levelSize;
+            averageLevel = averageLevel / size;
             result.add(averageLevel);
         }
         return result;

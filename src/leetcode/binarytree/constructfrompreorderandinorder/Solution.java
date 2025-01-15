@@ -1,4 +1,4 @@
-package leetcode.binarytree.constructbinarytree;
+package leetcode.binarytree.constructfrompreorderandinorder;
 import java.util.*;
 
 // https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/description/
@@ -15,29 +15,41 @@ class TreeNode {
     }
 }
 public class Solution {
+    int[] preOrder;
+    int[] inOrder;
+    Map<Integer, Integer> map = new HashMap<>();
+    int index = 0;
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
 
-    static TreeNode buildTree(int[] preorder, int[] inorder) {
+    preOrder = preorder;
+    inOrder = inorder;
+    int n = preOrder.length;
+    for (int i = 0; i < n; i++) {
+        map.put(inorder[i], i);
+    }
+    TreeNode root = dfs(0, n - 1);
+    return root;
 
-        if (preorder.length == 0) {
-            return null;
-        }
+    }
 
-        int r = preorder[0];
-        int index = 0;
+    private TreeNode dfs(int start, int end) {
+        //base case
+        if (start > end) return null;
 
-        for(int i=0; i<inorder.length; i++) {
-            if(inorder[i] == r) {
-                index = i;
-            }
-        }
+        //build the tree node
+        int currentValue = preOrder[index++]; //increment before traverse the left subtree
+        TreeNode current = new TreeNode(currentValue);
 
-        TreeNode node = new TreeNode(r);
+        int mid = map.get(currentValue);
 
-        node.left = buildTree(Arrays.copyOfRange(preorder, 1, index + 1), Arrays.copyOfRange(inorder, 0, index));
-        node.right = buildTree(Arrays.copyOfRange(preorder, index + 1, preorder.length), Arrays.copyOfRange(inorder, index + 1, inorder.length));
+        //build the left subtree
+        current.left = dfs(start, mid - 1);
 
-        return node;
+        //build the right subtree
+        current.right = dfs(mid + 1, end);
 
+        //return the tree node
+        return current;
     }
 
     static void printInOrder(TreeNode root) {
@@ -71,7 +83,8 @@ public class Solution {
                 15  7
         */
 
-        TreeNode root1 = buildTree(preorder1, inorder1);
+        Solution solution = new Solution();
+        TreeNode root1 = solution.buildTree(preorder1, inorder1);
         printPreOrder(root1);
         System.out.println();
         printInOrder(root1);

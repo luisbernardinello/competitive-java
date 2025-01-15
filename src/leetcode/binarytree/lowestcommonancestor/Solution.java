@@ -14,6 +14,7 @@ class TreeNode {
     }
 }
 
+// O(n) time complexity and O(h) space complexity
 public class Solution {
 
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
@@ -27,14 +28,50 @@ public class Solution {
 
         TreeNode left = lowestCommonAncestor(root.left, p, q);
         TreeNode right = lowestCommonAncestor(root.right, p, q);
-
+        // we found p and q in left and right
         if (left != null && right != null) {
             return root;
         }
+        // otherwise we return the left or the right
+//        return left == null ? right : left;
+        if (left != null) {
+            return left;
+        }
 
-        return left == null ? right : left;
+        return right;
 
     }
+
+
+//    static Node lca(Node root, int n1, int n2) {
+//
+//        if (root == null) {
+//            return null;
+//        }
+//
+//        // If either key matches with root data, return root
+//        if (root.data == n1 || root.data == n2) {
+//            return root;
+//        }
+//
+//        // Look for keys in left and right subtrees
+//        Node leftLca = lca(root.left, n1, n2);
+//        Node rightLca = lca(root.right, n1, n2);
+//
+//        // If both left and right subtrees return a non-null value,
+//        // this node is the LCA
+//        if (leftLca != null && rightLca != null) {
+//            return root;
+//        }
+//
+//        // Return whichever subtree has the LCA (or null if neither does)
+//        if (leftLca != null) {
+//            return leftLca;
+//        }
+//
+//        return rightLca;
+//
+//    }
 
     public static void main(String[] args) {
         Solution solution = new Solution();

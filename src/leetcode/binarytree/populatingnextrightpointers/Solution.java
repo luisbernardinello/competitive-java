@@ -1,7 +1,7 @@
 package leetcode.binarytree.populatingnextrightpointers;
 import java.util.*;
 //https://leetcode.com/problems/populating-next-right-pointers-in-each-node/description/
-
+// Using level order traversal (BFS)
 // Definition for a Node.
 class Node {
     public int val;
@@ -30,20 +30,27 @@ public class Solution {
             return null;
         }
 
-        Node leftMost = root;
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
 
-        while (leftMost.left != null) {
-            Node current = leftMost;
-            while(current != null) {
-                current.left.next = current.right;
-                if(current.next != null) {
-                    current.right.next = current.next.left;
+        while (!queue.isEmpty()){
+            int size = queue.size();
+            Node previous = null;
+            for (int i = 0; i < size; i++) {
+                Node first = queue.poll();
+                if(previous != null){
+                    previous.next = first;
                 }
-                current = current.next;
+                previous = first;
+                // because we have a perfect binary tree
+                if(first.left != null) {
+                    queue.add(first.left);
+                    queue.add(first.right);
+                }
             }
-            leftMost = leftMost.left;
         }
         return root;
+
     }
 
     public void printNextPointers(Node root) {
@@ -84,18 +91,6 @@ public class Solution {
         solution.connect(root1);
         solution.printNextPointers(root1);
 
-        Node root2 = new Node(1);
 
-        /*
-                1
-        */
-
-        solution.connect(root2);
-        solution.printNextPointers(root2);
-
-        Node root3 = null;
-
-        solution.connect(root3);
-        solution.printNextPointers(root3);
     }
 }

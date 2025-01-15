@@ -1,4 +1,4 @@
-package leetcode.binarytree.levelordertravessorii;
+package leetcode.binarytree.levelordertraversal2;
 import java.util.*;
 //https://leetcode.com/problems/binary-tree-level-order-traversal-ii/description/
 
