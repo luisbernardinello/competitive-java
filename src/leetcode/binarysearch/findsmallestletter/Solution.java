@@ -3,6 +3,24 @@ import java.util.*;
 //https://leetcode.com/problems/find-smallest-letter-greater-than-target/
 public class Solution {
 
+    static char nextGreatestLetter2(char[] letters, char target) {
+
+        int n = letters.length;
+        if(letters[n - 1] <= target || target < letters[0]) {
+            return letters[0];
+        }
+        int left = 0, right = n - 1;
+        while(left + 1 < right) {
+            int mid = left + (right - left) / 2;
+            if(letters[mid] <= target) {
+                left = mid;
+            } else {
+                right = mid;
+            }
+        }
+        return letters[right];
+    }
+
     static char nextGreatestLetter(char[] letters, char target) {
 
         int start = 0;

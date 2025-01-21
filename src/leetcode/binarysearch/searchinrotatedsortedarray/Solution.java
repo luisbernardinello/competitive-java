@@ -1,4 +1,4 @@
-package leetcode.binarysearch.rotatedsortedarray;
+package leetcode.binarysearch.searchinrotatedsortedarray;
 // https://leetcode.com/problems/search-in-rotated-sorted-array/submissions/
 
 public class Solution {

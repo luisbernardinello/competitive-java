@@ -15,23 +15,27 @@ class TreeNode {
 }
 public class Solution {
 
-    public static int maxPathSum(TreeNode root) {
-        int[] ans = new int[] { Integer.MIN_VALUE };
-        findMaxPathSum(root, ans);
-        return ans[0];
+    int maxSum = Integer.MIN_VALUE;
+
+    public int maxPathSum(TreeNode root) {
+        dfs(root);
+        return maxSum;
     }
 
-    private static int findMaxPathSum(TreeNode node, int[] ans) {
+    private int dfs(TreeNode node) {
+        // Base case
         if (node == null) {
             return 0;
         }
 
-        int left = Math.max(0, findMaxPathSum(node.left, ans));
-        int right = Math.max(0, findMaxPathSum(node.right, ans));
+        //Left
+        int left = Math.max(0, dfs(node.left));
+        //Right
+        int right = Math.max(0, dfs(node.right));
 
         int pathSum = left + right + node.val;
 
-        ans[0] = Math.max(ans[0], pathSum);
+        maxSum = Math.max(maxSum, pathSum);
 
         return Math.max(left, right) + node.val;
     }
@@ -52,7 +56,8 @@ public class Solution {
                  15   7
         */
 
-        System.out.println("Maximum Path Sum: " + maxPathSum(root));
+        Solution solution = new Solution();
+        System.out.println("Maximum Path Sum: " + solution.maxPathSum(root));
     }
 
 }

@@ -44,5 +44,16 @@ public class Solution {
         for (int an : ans) {
             System.out.print(an + " ");
         }
+
+        System.out.print("\n" + ans[0] + " " + ans[1] + "\n");
+
+        System.out.println();
+
+        int[] nums2 = {5 ,7, 7, 8 ,8 ,10};
+        int target2 = 10;
+        int[] ans2 = searchRange(nums2, target2);
+        for (int element : ans2) {
+            System.out.print(element + " ");
+        }
     }
 }

@@ -14,18 +14,35 @@ class TreeNode {
       }
 }
 
-
+// TIme complexity O(n) and Space complexity O(h)
 public class Solution {
 
-    static boolean hasPathSum(TreeNode root, int sum) {
+    public boolean hasPathSum(TreeNode root, int targetSum) {
         if (root == null) {
             return false;
         }
-        if (root.val == sum && root.left == null && root.right == null) {
-            return true;
-        }
-        return hasPathSum(root.left, sum-root.val) || hasPathSum(root.right, sum-root.val);
+        return dfs(root, targetSum);
     }
+
+    private boolean dfs(TreeNode root, int targetSum) {
+        targetSum -= root.val;
+
+        //base case: leaf node
+        if (root.left == null && root.right == null) {
+            return targetSum == 0;
+        }
+        boolean left = false, right = false;
+        if(root.left != null) {
+            left = dfs(root.left, targetSum);
+        }
+
+        if(root.right != null) {
+            right = dfs(root.right, targetSum);
+        }
+
+        return left || right;
+    }
+
 
 
     public static void main(String[] args) {
@@ -34,7 +51,8 @@ public class Solution {
         root.right = new TreeNode(3);
 
         int targetSum = 5;
-        System.out.println(hasPathSum(root, targetSum));
+        Solution solution = new Solution();
+        System.out.println(solution.hasPathSum(root, targetSum));
 
     }
 }

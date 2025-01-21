@@ -2,23 +2,25 @@ package leetcode.binarysearch.rotatedsortedarrayfindminimum;
 //https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
 public class Solution {
     // fast solution
-//    static int findMin(int[] nums) {
-//        int start = 0;
-//        int end = nums.length - 1;
-//
-//        while (start < end) {
-//            int mid = start + (end - start) / 2;
-//
-//            if (nums[mid] > nums[end]) {
-//                start = mid + 1;
-//            }
-//            else {
-//                end = mid;
-//            }
-//        }
-//
-//        return nums[start];
-//    }
+    static int findMin2(int[] nums) {
+        int left = 0;
+        int right = nums.length - 1;
+
+        if (nums[left] < nums[right]) {
+            return nums[left];
+        }
+
+        while(left + 1 < right) {
+            int mid = left + (right - left) / 2;
+
+            if(nums[mid] > nums[right]) {
+                left = mid;
+            } else {
+                right = mid;
+            }
+        }
+        return Math.min(nums[left], nums[right]);
+    }
 
     static int findMin(int[] nums) {
         int pivot = findPivot(nums);
