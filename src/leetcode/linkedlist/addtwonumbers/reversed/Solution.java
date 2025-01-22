@@ -1,6 +1,4 @@
 package leetcode.linkedlist.addtwonumbers.reversed;
-import org.w3c.dom.Node;
-
 import java.util.*;
 //https://leetcode.com/problems/add-two-numbers/description/
 
@@ -15,33 +13,43 @@ class ListNode {
 public class Solution {
 
     static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-
-        ListNode dummyHead = new ListNode(0);
-        ListNode curr = dummyHead;
-
+        //define the pointers and carry
+        ListNode dummy = new ListNode();
+        ListNode previous = dummy;
         int carry = 0;
 
-        while (l1 != null || l2 != null || carry > 0) {
+        // while l1 and l2 is not empty
+        while (l1 != null || l2 != null) {
+            // get current sum += carry over
 
-            int sum = carry;
+            int value1 = l1 != null ? l1.val : 0;
+            int value2 = l2 != null ? l2.val : 0;
 
-            if(l1 != null) {
-                sum += l1.val;
-                l1 = l1.next;
+            int sum = value1 + value2 + carry;
+            carry = 0;
+
+            // check if current sum is bigger than 9 then increment carry over by one
+            if(sum > 9) {
+                carry++;
             }
 
-            if(l2 != null) {
-                sum += l2.val;
-                l2 = l2.next;
+            //create a node with the value of current sum % of the 10
+            ListNode currentNode = new ListNode(sum % 10);
 
-            }
+            // pre point to current node
+            previous.next = currentNode;
+            previous = currentNode;
+            l1 = l1 != null ? l1.next : null;
+            l2 = l2 != null ? l2.next : null;
 
-            carry = sum / 10;
-            curr.next = new ListNode(sum % 10);
-            curr = curr.next;
         }
 
-        return dummyHead.next;
+        if (carry != 0) {
+            ListNode currentNode = new ListNode(1);
+            previous.next = currentNode;
+        }
+        return dummy.next;
+
     }
 
     static void printList(ListNode head) {
